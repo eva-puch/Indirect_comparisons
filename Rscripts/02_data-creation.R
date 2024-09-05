@@ -60,4 +60,4 @@ head(data)
 
 #--------------------   Export the dataframe   ---------------------------------
 
-write.csv(data, file = "Data/data.csv")
+write.csv(data, file = "Data/data.csv", row.names = FALSE)
