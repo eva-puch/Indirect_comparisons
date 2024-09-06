@@ -165,5 +165,5 @@ iptw_distrib(data = data,
 
 # RDS format to keep variable's type
 rownames(data)=NULL
-saveRDS(data, file = "data/processed_data/data_prop-score.rds")
+saveRDS(data, file = "Data/data_prop-score.rds")
 

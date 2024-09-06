@@ -5,6 +5,7 @@ rm(list=ls()) # clear the R environment
 library(dplyr)            # dataframe manipulation
 library(MatchIt)          # matching
 library(optmatch)         # optimal matching
+library(maic)             # performing MAIC
 library(tableone)         # calculation of standardized mean differences (SMD)
 library(knitr)            # managing R outputs
 library(ggplot2)          # plots
