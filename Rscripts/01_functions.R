@@ -400,3 +400,49 @@ maic_adjust <- function(ipd_df, variables, target_values, type){
        wgt = wgt,
        ess = ess)
 }
+
+#------------   Distributions in IPD population before and after MAIC   --------
+
+#' Display Distribution of a Variable Before and After MAIC
+#'
+#' This function generates a plot showing the distribution of a specified variable
+#' before and after performing a Matching-Adjusted Indirect Comparison (MAIC).
+#' The plot is either a density plot for quantitative variables or a histogram for qualitative variables.
+#'
+#' @param table A data frame containing the data, including the weight variable.
+#' @param variable A string specifying the name of the variable to be plotted. This variable should be present in the `table` data frame.
+#' @param var_type A string indicating the type of the variable: "quanti" for quantitative variables  or "quali" for qualitative variables.
+#' @param opac A numeric value between 0 and 1 specifying the opacity level of the plot. The default value is 0.5.
+#'
+#' @return A ggplot object displaying the distribution of the variable, before and after MAIC weighting.
+#'
+maic_distrib <- function(table, variable, var_type, opac=0.5){
+  
+  df_before <- table
+  df_before$maic_weights <- 1
+  df_before$type <- "Before MAIC"
+  df_after <- table
+  df_after$type <- "After MAIC"
+  df <- rbind(df_before, df_after)
+  df$type <- factor(df$type, levels = c("Before MAIC", "After MAIC"))
+  
+  if (var_type == "quanti") { # quantitative variable (density)
+    
+    plot <- ggplot(df, aes_string(x = variable, fill = "type", weight = df$maic_weights)) +
+      geom_density(alpha = opac) +
+      labs(x = variable, y = "Density") +
+      scale_fill_manual(name = "Legend", values = c("Before MAIC"="#CDAF95", "After MAIC"="#53868B")) +
+      theme(legend.position = "right")
+    
+  } else if (var_type == "quali") { # qualitative variable (histogram)
+    df[[variable]] <- as.factor(df[[variable]])
+    
+    plot <- ggplot(df, aes_string(x = variable, fill = "type", weight = df$maic_weights)) +
+      geom_bar(position="dodge", alpha = opac) +
+      labs(x = variable, y = "") +
+      scale_fill_manual(name = "Legend", values = c("Before MAIC"="#CDAF95", "After MAIC"="#53868B")) +
+      theme(legend.position = "right")
+    
+  }
+  return(plot)
+}
