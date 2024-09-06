@@ -91,3 +91,79 @@ match_distrib(data = data,
               group = "trt",
               absname = "Sex")
 
+#--------------------   IPTW   -------------------------------------------------
+# IPTW ----
+res_iptw <- iptw_smd(data = data,
+                     treatment = "trtb",
+                     ps = "prop_score",
+                     allvars=c("therapies", "diag", "sex", "age"),
+                     catvars = c("sex"),
+                     labels = c("Number of therapies", "Time since diagnosis", "Sex", "Age"),
+                     strata = "trt")
+
+data <- left_join(data, res_iptw$weighted[,c("id", "ps_weights")], by = "id")
+
+# Weights distribution ----
+
+by(data$ps_weights, data$trt, summary)
+
+# boxplot
+plot_ly(data,
+        x = ~ps_weights,
+        y = ~trt,
+        type = "box",
+        orientation = "h",
+        boxpoints = FALSE,
+        color = ~trt,
+        colors = c(colT2, colT1)) %>%
+  layout(xaxis = list(title = "IPTW Weights"),
+         yaxis = list(title = ""),
+         legend = list(
+           title = list(text = "Treatment"),
+           traceorder = "reversed"))
+
+# density
+ggplot(data, aes(x = ps_weights, fill = trt)) +
+  geom_density(alpha = 0.5) +
+  labs(x = "IPTW Weights", y = "") +
+  theme_minimal() +
+  scale_fill_manual(name = "Treatment", values = c(colT1,colT2), breaks = c("T1", "T2")) +
+  theme(legend.position = "left") +
+  guides(fill = guide_legend(title = "Treatment"))
+
+
+# Variable's distribution before and after IPTW ----
+
+iptw_distrib(data = data,
+             variable = "prop_score",
+             weights = "ps_weights",
+             group = "trt",
+             absname = "Propensity score")
+
+iptw_distrib(data = data,
+             variable = "age",
+             weights = "ps_weights",
+             group = "trt",
+             absname = "Age at inclusion")
+
+iptw_distrib(data = data,
+             variable = "diag",
+             weights = "ps_weights",
+             group = "trt",
+             absname = "Time since diagnosis")
+
+iptw_distrib(data = data,
+             variable = "therapies",
+             weights = "ps_weights",
+             group = "trt",
+             absname = "Number of previous therapies",
+             type = "quali")
+
+
+#------------   Export dataframe with the added variables   ----------------------
+# The added variables are : prop_score, subclass, ps_weights
+
+# RDS format to keep variable's type
+rownames(data)=NULL
+saveRDS(data, file = "data/processed_data/data_prop-score.rds")
+
