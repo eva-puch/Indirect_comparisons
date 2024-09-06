@@ -27,14 +27,18 @@ The other variables are :
 
 ### 🗂️ Repository structure
 
-├── data/                        # Folder containing generated or raw data  
-│ └── data.csv                           # created dataset  
-├── Rscripts/                            # Folder containing R scripts  
-│ ├── 00_initialize.R                    # Script for the main analysis  
-│ ├── 01_functions.R                     # Script containing all created function  
-| |-- 02_propensity_score  
-├── results/                     # Output folder for results or plots  
-│ └── analysis_results.txt               # Example of a results file  
-├── README.md                    # Project overview (this file)  
-└── LICENSE                      # License for the project  
+|-- Data/  
+|   |-- data.rds  
+|  
+|-- Rscripts/  
+|   |-- 00_initialize.R  
+|   |-- 01_functions.R  
+|   |-- 02_data-creation.R  
+|   |-- 03_propensity-score.R  
+|   |-- 04_maic.R  
+|  
+|-- Results/  
+|  
+|-- README.md
+
 
