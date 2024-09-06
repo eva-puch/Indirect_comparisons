@@ -343,3 +343,60 @@ iptw_distrib <- function(data, variable, weights, group, absname, type = "quanti
   
   be + af + plot_layout(ncol=2)
 }
+
+#------------   Performing MAIC weighting   ------------------------------------
+
+#' Perform a Matching-Adjusted Indirect Comparison (MAIC)
+#'
+#' It adjusts for baseline characteristics by matching individual-patient
+#' data (IPD) with target values provided in the function.
+#'
+#' @param ipd_df A data frame containing individual patient data (IPD). The data should include the variables that need to be matched.
+#' @param variables A vector of variable names used for matching in the IPD. These variables are used to adjust for baseline characteristics.
+#' @param target_values A vector of target values corresponding to the variables (from the AgD summary).
+#' @param type A vector indicating the type of each variable : "mean", "sd", "proportion",...
+#'
+#' #' Accessing the results
+#' res$maic : the maic R object
+#' res$wgt : the weights from the MAIC
+#' res$ess : the effective sample size (ESS)
+
+maic_adjust <- function(ipd_df, variables, target_values, type){
+  n <- as.numeric(length(target_values))
+  
+  target <- c()        # initialize target vector
+  matchid <- c()       # initialize match.id vector (used in 'dic')
+  suppl <- rep("", n)  # initialize suppl vector (used for 'supplementary.target.variable')
+  
+  for (i in 1:n) {
+    target[paste0("Var_", i)] <- target_values[i]
+    matchid[i] <- paste0("var", i)
+    if (type[i] == "sd") {
+      var <- variables[i]
+      j <- as.numeric(which(variables==var & type=="mean"))
+      suppl[i] <- names(target[j])
+    }
+  }
+  
+  dic <- data.frame(
+    "match.id" = matchid,
+    "target.variable" = names(target),
+    "index.variable" = variables,
+    "match.type" = type,
+    "supplementary.target.variable" = suppl
+  )
+  
+  maic <- createMAICInput(
+    index = ipd_df,
+    target = target,
+    dictionary = dic,
+    matching.variables = subset(dic, select='match.id')
+  )
+  
+  wgt <- maicWeight(maic) # weights
+  ess <- sum(wgt)^2 / sum(wgt^2) # Effective Sample Size (ESS)
+  
+  list(maic = maic,
+       wgt = wgt,
+       ess = ess)
+}
