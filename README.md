@@ -28,14 +28,14 @@ The other variables are :
 ### 🗂️ Repository structure
 
 |-- Data/  
-|   |-- data.rds  
+|      |-- data.rds  
 |  
 |-- Rscripts/  
-|   |-- 00_initialize.R  
-|   |-- 01_functions.R  
-|   |-- 02_data-creation.R  
-|   |-- 03_propensity-score.R  
-|   |-- 04_maic.R  
+|      |-- 00_initialize.R  
+|      |-- 01_functions.R  
+|      |-- 02_data-creation.R  
+|      |-- 03_propensity-score.R  
+|      |-- 04_maic.R  
 |  
 |-- Results/  
 |  
