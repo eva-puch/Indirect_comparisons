@@ -39,7 +39,7 @@ res_maic <- maic_adjust(ipd,
 
 ipd$maic_weights <- as.numeric(res_maic$wgt)
 
-remove(mean_age, sd_age, prop_male, mean_diag, sd_diag, mean_therapies, ds_therapies)
+remove(mean_age, sd_age, prop_male, mean_diag, sd_diag, mean_therapies, sd_therapies)
 
 # Weights distribution ----
 
@@ -60,7 +60,9 @@ plot_ly(
 ) %>%
   layout(
     xaxis = list(title = "MAIC weights"),
-    yaxis = list(title = "Frequency")
+    yaxis = list(title = "Frequency"),
+    plot_bgcolor = 'rgba(240, 240, 240, 1)',
+    paper_bgcolor = 'white'
   )
 
 # Distributions of variable in IPD population, before and after MAIC ----

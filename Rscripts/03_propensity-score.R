@@ -27,18 +27,23 @@ plot_ly(data,
         orientation = "h",
         boxpoints = FALSE,
         color = ~trt,
-        colors = c(colT2,colT1)) %>%
-  layout(xaxis = list(range = c(-0.1, 1), title = "Propensity Score"),
-         yaxis = list(title = ""),
-         legend = list(
-           title = list(text = "Treatment"),
-           traceorder = "reversed"))
+        colors = c(colT2, colT1)) %>%
+  layout(
+    xaxis = list(range = c(-0.05, 1), title = "Propensity Score",
+                 showgrid = TRUE, gridcolor = 'white', zeroline = FALSE),
+    yaxis = list(title = "", showgrid = TRUE, gridcolor = 'white'),
+    legend = list(
+      title = list(text = "Treatment"),
+      traceorder = "reversed"),
+    plot_bgcolor = 'rgba(240, 240, 240, 1)',
+    paper_bgcolor = 'white',
+    margin = list(l = 50, r = 50, t = 50, b = 50)
+  )
 
 # density
 ps <- ggplot(data, aes(x = prop_score, fill = trt)) +
   geom_density(alpha = 0.5) +
   labs(x = "Propensity score", y = "") +
-  theme_minimal() +
   scale_fill_manual(name = "Treatment", values = c(colT1,colT2), breaks = c("T1", "T2")) +
   theme(legend.position = "left") +
   guides(fill = guide_legend(title = "Treatment"))
