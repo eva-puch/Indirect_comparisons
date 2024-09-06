@@ -2,7 +2,7 @@ source("Rscripts/00_initialize.R")
 
 #--------------------   Import the dataset   -----------------------------------
 
-data <- readRDS("data/processed_data/data.rds")
+data <- readRDS("Data/data.rds")
 summary(data)
 
 #--------------------   Propensity score: estimation   -------------------------
@@ -43,3 +43,51 @@ ps <- ggplot(data, aes(x = prop_score, fill = trt)) +
   theme(legend.position = "left") +
   guides(fill = guide_legend(title = "Treatment"))
 ps
+
+#--------------------   Optimal matching   -------------------------------------
+# Optimal matching ----
+
+res_opti <- matched_smd(treatment="trtb", ps="prop_score", data=data[!is.na(data$prop_score),],
+                        method="optimal", ratio=1,
+                        allvars=c("therapies", "diag", "sex", "age"),
+                        catvars = c("sex"),
+                        labels = c("Number of therapies", "Time since diagnosis", "Sex", "Age"),
+                        strata = "trt")
+
+data <- left_join(data, res_opti$matched[,c("id","subclass")], by="id")
+
+
+# Variable's distribution before (left) and after (right) matching ----
+
+match_distrib(data = data,
+              variable = "prop_score",
+              match_var = "subclass",
+              group = "trt",
+              absname = "Propensity score")
+
+match_distrib(data = data,
+              variable = "age",
+              match_var = "subclass",
+              group = "trt",
+              absname = "Age at inclusion")
+
+match_distrib(data = data,
+              variable = "diag",
+              match_var = "subclass",
+              group = "trt",
+              absname = "Time since diagnosis")
+
+match_distrib(data = data,
+              variable = "therapies",
+              type = "quali",
+              match_var = "subclass",
+              group = "trt",
+              absname = "Number of previous therapies")
+
+match_distrib(data = data,
+              variable = "sex",
+              type = "quali",
+              match_var = "subclass",
+              group = "trt",
+              absname = "Sex")
+
