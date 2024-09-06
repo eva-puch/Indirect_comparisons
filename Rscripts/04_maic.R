@@ -39,6 +39,8 @@ res_maic <- maic_adjust(ipd,
 
 ipd$maic_weights <- as.numeric(res_maic$wgt)
 
+remove(mean_age, sd_age, prop_male, mean_diag, sd_diag, mean_therapies, ds_therapies)
+
 # Weights distribution ----
 
 plot_ly(
@@ -82,3 +84,4 @@ maic_distrib(table = ipd,
              variable = "therapies",
              var_type = "quali",
              opac = 0.7)
+

@@ -117,7 +117,6 @@ match_distrib <- function(data, variable, match_var, group, absname, type = "qua
     be <- ggplot(data_be, aes_string(x = variable, fill = group)) +
       geom_density(alpha = opac) +
       labs(x = absname, y = "") +
-      theme_minimal() +
       scale_fill_manual(name = "Treatment",
                         values = c(colT1, colT2),
                         labels = c(T1name, T2name),
@@ -128,7 +127,6 @@ match_distrib <- function(data, variable, match_var, group, absname, type = "qua
     af <- ggplot(data_af, aes_string(x = variable, fill = group)) +
       geom_density(alpha = opac) +
       labs(x = absname, y = "") +
-      theme_minimal() +
       scale_fill_manual(name = "Traitement",
                         values = c(colT1,colT2),
                         labels = c(T1name, T2name),
@@ -142,7 +140,6 @@ match_distrib <- function(data, variable, match_var, group, absname, type = "qua
     be <- ggplot(data_be, aes_string(x = variable, fill = group)) +
       geom_bar(position="dodge", alpha = opac) +
       labs(x = absname, y = "") +
-      theme_minimal() +
       scale_fill_manual(name = "Treatment",
                         values = c(colT1, colT2),
                         labels = c(T1name, T2name),
@@ -153,7 +150,6 @@ match_distrib <- function(data, variable, match_var, group, absname, type = "qua
     af <- ggplot(data_af, aes_string(x = variable, fill = group)) +
       geom_bar(position="dodge", alpha = opac) +
       labs(x = absname, y = "") +
-      theme_minimal() +
       scale_fill_manual(name = "Treatment",
                         values = c(colT1,colT2),
                         labels = c(T1name, T2name),
@@ -286,7 +282,6 @@ iptw_distrib <- function(data, variable, weights, group, absname, type = "quanti
     be <- ggplot(data, aes_string(x = variable, fill = group)) +
       geom_density(alpha = opac) +
       labs(x = absname, y = "") +
-      theme_minimal() +
       scale_fill_manual(name = "Treatment",
                         values = c(colT1, colT2),
                         labels = c(T1name, T2name),
@@ -297,7 +292,6 @@ iptw_distrib <- function(data, variable, weights, group, absname, type = "quanti
     af <- ggplot(data, aes_string(x = variable, fill = group, weight = weights)) +
       geom_density(alpha = opac) +
       labs(x = absname, y = "") +
-      theme_minimal() +
       scale_fill_manual(name = "Traitement",
                         values = c(colT1,colT2),
                         labels = c(T1name, T2name),
@@ -311,7 +305,6 @@ iptw_distrib <- function(data, variable, weights, group, absname, type = "quanti
     be <- ggplot(data, aes_string(x = variable, fill = group)) +
       geom_bar(position="dodge", alpha = opac) +
       labs(x = absname, y = "") +
-      theme_minimal() +
       scale_fill_manual(name = "Treatment",
                         values = c(colT1, colT2),
                         labels = c(T1name, T2name),
@@ -322,7 +315,6 @@ iptw_distrib <- function(data, variable, weights, group, absname, type = "quanti
     af <- ggplot(data, aes_string(x = variable, fill = group, weight = weights)) +
       geom_bar(position="dodge", alpha = opac) +
       labs(x = absname, y = "") +
-      theme_minimal() +
       scale_fill_manual(name = "Treatment",
                         values = c(colT1,colT2),
                         labels = c(T1name, T2name),
