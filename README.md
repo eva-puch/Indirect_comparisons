@@ -1,4 +1,4 @@
-# Indirect comparison methods in clinical trials : T1 vs. T2
+# Indirect comparison methods in clinical trials
 #### Project status : In progress ⏳
 This projet implements three methods for non-anchored indirect comparisons of two treatments, T1 and T2, using simulated clinical trial data. These methos allow us to compare treatments in scenarios where there are no head-to-head trials comparing these treatments, but where each treatment has already been studied in separate trials.
 
