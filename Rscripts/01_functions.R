@@ -438,3 +438,94 @@ maic_distrib <- function(table, variable, var_type, opac=0.5){
   }
   return(plot)
 }
+
+#------------   Forest plots of results (Odd Ratios or Hazard Ratios)   --------
+
+#' Forest Plot Function
+#'
+#' Generates a forest plot displaying effect sizes (either Odds Ratios (OR) or Hazard Ratios (HR))
+#' with their corresponding 95% confidence intervals (CIs) for different models and methods.
+#'
+#' @param models A vector containing the names of the models to be included in the plot.
+#' @param type A character string specifying the type of effect size ("HR" for hazard ratio or "OR" for odds ratio).
+#' @param methods A vector containing the names of the different adjustment methods used.
+#' @param N_1 A vector containing the number of patients in the T1 group for each method.
+#' @param N_2 A vector containing the number of patients in the T2 group for each method.
+#' @param col Color for the effect sizes and their confidence intervals in the plot (default: "deepskyblue4").
+#'
+#' @return A forest plot displaying the effect sizes with their 95% CIs for the specified models and methods.
+
+forest_plot <- function(models, type, methods, N_1, N_2, col = "deepskyblue4") {
+  coefs <- list()
+  
+  # Retrieve HR and their confidence intervals from each model into the 'coefs' list
+  if (type == "HR") {
+    for (model_name in models) {
+      model <- get(model_name)
+      conf_int <- summary(model)$conf.int
+      coefs[[model_name]] <- c(
+        ES = conf_int[ , 1],     # HR
+        lower = conf_int[ , 3],  # lower 95% CI
+        upper = conf_int[ , 4])  # upper 95% CI
+    }
+  }
+  
+  # Retrieve HR and their confidence intervals from each model into the 'coefs' list
+  if (type == "OR") {
+    for (model_name in models) {
+      or <- get(model_name)
+      conf_int <- c(1/or$measure[2, 1],   # OR
+                    1/or$measure[2, 3],   # lower 95% CI
+                    1/or$measure[2, 2])   # upper 95% CI
+      coefs[[model_name]] <- conf_int
+    }
+  }
+  
+  # Convert the list 'coefs' to a data frame
+  coefs <- as.data.frame(do.call(rbind, coefs))
+  colnames(coefs) <- c("ES", "lower", "upper")
+  coefs$method <- methods
+  coefs$treatment <-N_1
+  coefs$control <- N_2
+  coefs$size <- 0.5
+  
+  coefs <- coefs %>%
+    select(method, treatment, control, ES, lower, upper, size)
+  coefs$'' <- paste(rep(" ", 20), collapse = " ") # colonne vide pour l'affichage des IC
+  coefs$es_ci <- paste0(format(round(coefs$ES, 2),nsmall=2), " [",
+                        format(round(coefs$lower, 2), nsmall=2), " - ",
+                        format(round(coefs$upper, 2), nsmall=2), "]")
+  colnames(coefs) = c("Method", paste('N (',T1name,')'), paste('N (',T2name,')'), "ES", "lower", "upper", "size","", paste0(type," [IC95%]"))
+  
+  # Define the forest plot theme
+  tm = forest_theme(base_size = 14,
+                    base_family = "sans",
+                    # Confidence intervals line type/color/width
+                    ci_pch = 15,         # point style
+                    ci_col = col,        # point color
+                    ci_fill = col,       # point fill color
+                    ci_alpha = 1,        # point opacity
+                    ci_lty = 1,          # line type for CIs
+                    ci_lwd = 1.5,        # line width for CIs
+                    ci_Theight = 0.2,    # length of CI end bars
+                    # Reference line
+                    refline_gp = gpar(lwd = 1, lty = "dashed", col = "grey20"),
+                    vertline_lwd = 1,
+                    vertline_lty = "dashed",
+                    vertline_col = "grey20"
+  )
+  
+  # Create the forest plot
+  forest(coefs[,c(1:3, 8:9)],
+         est = coefs$ES,
+         lower = coefs$lower,
+         upper = coefs$upper,
+         size = coefs$size,
+         ci_column = 4,
+         ref_line = 1,
+         arrow_lab = c(paste(T2name,'better'), paste(T1name,'better')),
+         xlim = c(0,5),
+         theme = tm
+  )
+  
+}
