@@ -8,7 +8,7 @@ source("Rscripts/00_initialize.R")
 
 #--------------------   Data loading   -----------------------------------------
 
-data <- readRDS("data/processed_data/data_prop-score.rds")
+data <- readRDS("Data/data_prop-score.rds")
 
 # For optimal matching:
 data_match <- data[!is.na(data$subclass),]
@@ -17,8 +17,8 @@ data_match <- data[!is.na(data$subclass),]
 data_iptw <- data[, !names(data) %in% "subclass"]
 
 # For MAIC
-data_ipd <- readRDS("data/processed_data/ipd_maic.rds")   # individual data for T1
-data_agd <- readRDS("data/processed_data/agd.rds")        # only use aggregated data for T2
+data_ipd <- readRDS("Data/ipd_maic.rds")            # individual data for T1
+data_agd <- readRDS("Data/agd-data_maic/agd.rds")   # only use aggregated data for T2
 # we will use a weight of 1 for the supposed AgD' data
 data_agd$maic_weights <- 1
 data_maic <- rbind(data_ipd, data_agd)
@@ -65,12 +65,10 @@ method_names <- c("No adjustment", "Matching", "IPTW", "MAIC")
 N1 <- c("400", "300", "698", "295")
 N2 <- c("300", "300", "695", "300")
 
-png("Results/binary-outcome_forestplot.png", width=800, height=500)
-
+#png("Results/binary-outcome_forestplot.png", width=800, height=500)
 forest_plot(models=c("or", "or_match", "or_iptw", "or_maic"),
             type = "OR",
             methods = method_names,
             N_1 = N1,
             N_2 = N2)
-
-dev.off()
+#dev.off()

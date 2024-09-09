@@ -106,7 +106,7 @@ plot(km_agd, main = "KM curve from aggregated data (AgD)")
 while (!is.null(dev.list())) {
   dev.off()
 }
-dev.off()
+
 
 # Obtain the 'patients at risk' table from AgD
 ggsurv_agd <- ggsurvplot(

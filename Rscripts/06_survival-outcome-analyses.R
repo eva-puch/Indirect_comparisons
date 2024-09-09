@@ -8,7 +8,7 @@ source("Rscripts/00_initialize.R")
 
 #--------------------   Data loading   -----------------------------------------
 
-data <- readRDS("data/processed_data/data_prop-score.rds")
+data <- readRDS("Data/data_prop-score.rds")
 
 # For optimal matching:
 data_match <- data[!is.na(data$subclass),]
@@ -17,7 +17,7 @@ data_match <- data[!is.na(data$subclass),]
 data_iptw <- data[, !names(data) %in% "subclass"]
 
 # For MAIC
-data_ipd <- readRDS("data/processed_data/ipd_maic.rds")   # individual data for T1
+data_ipd <- readRDS("Data/ipd_maic.rds")   # individual data for T1
 # we will use a weight of 1 for the supposed AgD' data
 
 #--------------------   MATCHING & IPTW (IPD data for T1 and T2)   -------------
@@ -70,7 +70,7 @@ forest_plot(models=c("cox", "cox_match", "cox_iptw"),
 #--------------------   Individual data reconstruction from AgD ----
 
 # import the points from the digitalized Agd KM curve (cf '04_maic.R' script)
-digit_km <- read.csv("data/agd-data_maic/digitalized_km_agd.csv")
+digit_km <- read.csv("Data/agd-data_maic/digitalized_km_agd.csv")
 
 n_agd <- 300   # number of total subjects in the AgD population
 risk_table <- read.csv("data/agd-data_maic/risk_table_agd.csv")   # table of the number of patients at risk at specific times
