@@ -14,9 +14,8 @@ dataT1 <- tibble(
   diag = round(pmax(pmin(rnorm(n1, mean = 80, sd = 65), 450), 1),1),      # time since diagnosis (months)
   therapies = round(pmax(pmin(rnorm(n1, mean = 2.3, sd = 1.4), 7), 0)),   # number of previous therapies
   binary = rbinom(n1, 1, 0.97),                                           # binary outcome (e.g. : at least one response to treatment)
-  continous = pmax(rnorm(n1, mean = 0.64, sd = 0.8), 0),                  # continuous outcome
-  surv = pmax(pmin(rweibull(n1, 1.5, 57), 65), 1),                        # survival outcome (e.g : progression-free survival)
-  censor = rbinom(n1, 1, 0.45)                                            # censor indicator for the survival outcome
+  survival = pmax(pmin(rweibull(n1, 1.5, 57), 65), 1),                    # survival outcome (e.g : progression-free survival)
+  censor = rbinom(n1, 1, 0.35)                                            # censor indicator for the survival outcome
 )
 
 # generate data for the second group (treatment T2)
@@ -29,9 +28,8 @@ dataT2 <- tibble(
   diag = round(pmax(pmin(rnorm(n2, mean = 90, sd = 60), 290), 1), 1),     # time since diagnosis (months)
   therapies = round(pmax(pmin(rnorm(n2, mean = 1.7, sd = 1.3), 7), 0)),   # number of previous therapies
   binary = rbinom(n2, 1, 0.94),                                           # binary outcome : at least one response to treatment,
-  continous =  pmax(rnorm(n2, mean = 0.56, sd = 0.8), 0),                 # continuous outcome
-  surv = pmax(pmin(rweibull(n2, 1.5, 45), 55), 1),                        # survival outcome (e.g : progression-free survival)
-  censor = rbinom(n2, 1, 0.60)                                            # censor indicator for the survival outcome
+  survival = pmax(pmin(rweibull(n2, 1.5, 45), 55), 1),                    # survival outcome (e.g : progression-free survival)
+  censor = rbinom(n2, 1, 0.50)                                            # censor indicator for the survival outcome
 )
 
 # Merging the two dataframes

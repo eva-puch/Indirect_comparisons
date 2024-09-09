@@ -1,3 +1,4 @@
+rm(list=ls())
 source("Rscripts/00_initialize.R")
 
 # Assuming we have individual-patient data for group T1
@@ -87,3 +88,42 @@ maic_distrib(table = ipd,
              var_type = "quali",
              opac = 0.7)
 
+#------------   Export IPD with the MAIC weights   -----------------------------
+# RDS format to keep variable's type
+rownames(ipd)=NULL
+saveRDS(ipd, file = "Data/ipd_maic.rds")
+
+#------------   Export AgD   ---------------------------------------------------
+rownames(agd)=NULL
+saveRDS(agd, file = "Data/agd-data_maic/agd.rds")
+
+#------------   KM curve from AgD (specific to survival outcome)  --------------
+surv_agd <- Surv(time = agd$survival, event = 1-as.numeric(as.character(agd$censor)))
+km_agd <- survfit(surv_agd ~ 1, data = agd)
+
+png(filename = "Data/agd-data_maic/km_agd.png")
+plot(km_agd, main = "KM curve from aggregated data (AgD)")
+while (!is.null(dev.list())) {
+  dev.off()
+}
+dev.off()
+
+# Obtain the 'patients at risk' table from AgD
+ggsurv_agd <- ggsurvplot(
+  km_agd,
+  data = agd,
+  pval = FALSE,
+  conf.int = TRUE,
+  risk.table = TRUE,
+  ggtheme = theme_minimal())
+
+risk_table_agd <- ggsurv_agd$table$data[,2:3]
+
+write.csv(risk_table_agd, "Data/agd-data_maic/risk_table_agd.csv", row.names=FALSE)
+
+# Reconstruction of IPD data for the AgD population from KM curves (IPDfromKM package) ----
+
+#points <- getpoints("data/agd-data_maic/km_agd.png", x1=0, x2=50, y1=0, y2=1)
+
+# export this 'point' datafame
+#write.csv(points, file = "data/agd-data_maic/digitalized_km_agd.csv", row.names=FALSE)
