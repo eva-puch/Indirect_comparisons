@@ -1,4 +1,4 @@
-# Indirect comparison methods in clinical trials : T1 vs. T2
+# Indirect comparison methods in clinical trials
 #### Project status : In progress ⏳
 This projet implements three methods for non-anchored indirect comparisons of two treatments, T1 and T2, using simulated clinical trial data. These methos allow us to compare treatments in scenarios where there are no head-to-head trials comparing these treatments, but where each treatment has already been studied in separate trials.
 
@@ -27,14 +27,18 @@ The other variables are :
 
 ### 🗂️ Repository structure
 
-├── data/                        # Folder containing generated or raw data  
-│ └── data.csv                           # created dataset  
-├── Rscripts/                            # Folder containing R scripts  
-│ ├── 00_initialize.R                    # Script for the main analysis  
-│ ├── 01_functions.R                     # Script containing all created function  
-| |-- 02_propensity_score  
-├── results/                     # Output folder for results or plots  
-│ └── analysis_results.txt               # Example of a results file  
-├── README.md                    # Project overview (this file)  
-└── LICENSE                      # License for the project  
+|-- Data/  
+|      |-- data.rds  
+|  
+|-- Rscripts/  
+|      |-- 00_initialize.R  
+|      |-- 01_functions.R  
+|      |-- 02_data-creation.R  
+|      |-- 03_propensity-score.R  
+|      |-- 04_maic.R  
+|  
+|-- Results/  
+|  
+|-- README.md
+
 
