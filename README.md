@@ -24,22 +24,22 @@ The other variables are :
 - `diag`: time since diagnosis,
 - `therapies`: number of therapies previously followed.
 
+The goal here is to implement various adjustment methods rather than really comparing treatments. Therefore, we will only perform simple calculations of Odds Ratios (OR) for the binary outcome and Hazard Ratios for the survival outcome, rather than conducting more advanced analyses.
+
+
 ### 🗂️ Repository structure
 
-|-- Data/  
-|      |-- data.rds  
-|  
-|-- Rscripts/  
-|      |-- 00_initialize.R  
-|      |-- 01_functions.R  
-|      |-- 02_data-creation.R  
-|      |-- 03_propensity-score.R  
-|      |-- 04_maic.R 
-|      |-- 05_binary-outcome-analyses.R
-|      |-- 06_survival-outcome-analyses.R
-|  
-|-- Results/  
-|  
-|-- README.md
+- Data/  
+   - data.rds
+- Rscripts/
+   - 00_initialize.R
+   - 01_functions.R
+   - 02_data-creation.R
+   - 03_propensity-score.R
+   - 04_maic.R
+   - 05_binary-outcome-analyses.R
+   - 06_survival-outcome-analyses.R
+- Results/
+- README.md
 
 
