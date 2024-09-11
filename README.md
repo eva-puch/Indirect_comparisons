@@ -42,5 +42,6 @@ The goal here is to implement various adjustment methods rather than really comp
 - Results/
 - README.md
 
-### 
+### 📊 Principal results
+
 
