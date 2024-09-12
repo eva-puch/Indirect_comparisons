@@ -119,12 +119,11 @@ method_names <- c("No adjustment", "Matching", "IPTW", "MAIC")
 N1 <- c("400", "300", "698", "293")
 N2 <- c("300", "300", "695", "300")
 
-png("Results/survival-outcome_foresplot.png", widht=800, height=500)
-
+#png("Results/survival-outcome_foresplot.png", width=800, height=500)
 forest_plot(models=c("cox", "cox_match", "cox_iptw", "cox_maic"),
             type = "HR",
             methods = method_names,
             N_1 = N1,
             N_2 = N2)
+#dev.off()
 
-dev.off()
