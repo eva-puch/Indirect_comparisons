@@ -47,7 +47,9 @@ ps <- ggplot(data, aes(x = prop_score, fill = trt)) +
   scale_fill_manual(name = "Treatment", values = c(colT1,colT2), breaks = c("T1", "T2")) +
   theme(legend.position = "left") +
   guides(fill = guide_legend(title = "Treatment"))
+png("Results/propensity-score_density.png", width=600, height=450)
 ps
+dev.off()
 
 #--------------------   Optimal matching   -------------------------------------
 # Optimal matching ----
