@@ -44,16 +44,37 @@ The goal here is to implement various adjustment methods rather than really comp
 
 ### 📊 Principal results
 #### Propensity score density before and after Optimal Matching
+<p align="center">
 <img src="Results/prop-score_matching.png" alt="Matching" width="600"/>
+</p>
 
 #### Propensity score density before and after IPTW
+<p align="center">
 <img src="Results/prop-score_iptw.png" alt="IPTW" width="600"/>
+</p>
+
+#### Quality of reconstructed IPD data from the AgD population (for survival analysis)
+<p align="center">
+<img src="Results/reconstructed-ipd.png" alt="IPTW" width="600"/>
+</p>
 
 #### Some variables distributions before and after MAIC
 <p align="center">
   <img src="Results/age_maic.png" alt="Age" width="45%" />
   <img src="Results/therapies_maic.png" alt="Therapies" width="45%" />
 </p>
+
+#### Estimated Odds Ratios for the binary outcome, according to the adjustment method
+<p align="center">
+<img src="Results/binary-outcome_forestplot.png" alt="IPTW" width="600"/>
+</p>
+
+#### Estimated Hazard Ratios for the survival outcome, according to the adjustment method
+<p align="center">
+<img src="Results/survival-outcome_foresplot.png" alt="IPTW" width="600"/>
+</p>
+
+
 
 
 
