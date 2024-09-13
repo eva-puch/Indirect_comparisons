@@ -431,7 +431,7 @@ maic_distrib <- function(table, variable, var_type, opac=0.5){
     
     plot <- ggplot(df, aes_string(x = variable, fill = "type", weight = df$maic_weights)) +
       geom_bar(position="dodge", alpha = opac) +
-      labs(x = variable, y = "") +
+      labs(x = variable, y = "Frequency") +
       scale_fill_manual(name = "Legend", values = c("Before MAIC"="#CDAF95", "After MAIC"="#53868B")) +
       theme(legend.position = "right")
     

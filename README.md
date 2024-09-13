@@ -43,5 +43,13 @@ The goal here is to implement various adjustment methods rather than really comp
 - README.md
 
 ### 📊 Principal results
+#### Propensity score density before and after Optimal Matching
+<img src="Results/prop-score_matching.png" alt="Matching" width="600"/>
+
+#### Propensity score density before and after IPTW
+<img src="Results/prop-score_iptw.png" alt="IPTW" width="600"/>
+
+#### Histogram of obtained MAIC weights
+
 
 
