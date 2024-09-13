@@ -49,7 +49,11 @@ The goal here is to implement various adjustment methods rather than really comp
 #### Propensity score density before and after IPTW
 <img src="Results/prop-score_iptw.png" alt="IPTW" width="600"/>
 
-#### Histogram of obtained MAIC weights
+#### Some variables distributions before and after MAIC
+<p align="center">
+  <img src="Results/age_maic.png" alt="Age" width="45%" />
+  <img src="Results/therapies_maic.png" alt="Therapies" width="45%" />
+</p>
 
 
 
