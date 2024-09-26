@@ -14,6 +14,10 @@ agd <- data[data$trt == 'T2', ] # AgD data
 # binary variables have to be coded as numeric 0/1:
 ipd$sex <- as.numeric(ifelse(ipd$sex=="0", 0, 1))
 
+# Export IPD in .csv format (for maic_shiny app)
+write.csv(ipd, "Data/ipd-data_maic.csv", row.names=FALSE)
+
+
 #--------------------   AgD data summary   -------------------------------------
 
 # Age (continuous)

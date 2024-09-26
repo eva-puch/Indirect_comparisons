@@ -59,3 +59,4 @@ head(data)
 # RDS format to keep variable's type
 rownames(data)=NULL
 saveRDS(data, file = "Data/data.rds")
+
