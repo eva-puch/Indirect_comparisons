@@ -46,6 +46,7 @@ The goal here is to implement various adjustment methods rather than really comp
 
 #### The maic_shiny app
 This Shiny app calculates Matching-Adjusted Indirect Comparison (MAIC) weights for individual patient data (IPD). It allows users to adjust variables to match target population characteristics and visualize variable distributions before and after adjustment.  
+
 **Usage:**
 1. Upload data: load the IPD `.csv` file.
 2. Specify variables: variables to be adjusted, target values, and matching types.
