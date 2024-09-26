@@ -1,6 +1,6 @@
 # Indirect comparison methods in clinical trials
 #### Project status : In progress ⏳
-This projet implements three methods for indirect comparisons of two treatments (T1 and T2) using simulated data. These methods allow us to compare treatments in scenarios where there are no direct head-to-head trials, but each treatment has been studied in separate trials.
+This projet implements three methods for indirect comparisons of two treatments (T1 and T2) using simulated data. These methods allow to compare treatments in scenarios where there are no direct head-to-head trials.
 
 ### 📋 Overview
 In this repository, we employ the following methods to perform indirect comparisons:
@@ -39,8 +39,20 @@ The goal here is to implement various adjustment methods rather than really comp
    - 04_maic.R
    - 05_binary-outcome-analyses.R
    - 06_survival-outcome-analyses.R
+- maic_shiny/
+   - app.R
 - Results/
 - README.md
+
+#### The maic_shiny app
+This Shiny app calculates Matching-Adjusted Indirect Comparison (MAIC) weights for individual patient data (IPD). It allows users to adjust variables to match target population characteristics and visualize variable distributions before and after adjustment.  
+**Usage:**
+1. Upload data: load the IPD `.csv` file.
+2. Specify variables: variables to be adjusted, target values, and matching types.
+3. Calculate: click "Weights calculation" to compute MAIC weights.
+4. Visualize: compare distributions in the "Distributions" tab.
+5. Download: export the dataset with MAIC weights.
+
 
 ### 📊 Principal results
 #### Propensity score density before and after Optimal Matching
