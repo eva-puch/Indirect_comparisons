@@ -1,5 +1,5 @@
 # Indirect comparison methods in clinical trials
-#### Project status : Completed ✅
+#### Project status : Completed (Sept. 2024) ✅
 This projet implements three methods for indirect comparisons of two treatments (T1 and T2) using simulated data. These methods allow to compare treatments in scenarios where there are no direct head-to-head trials.
 
 ### 📋 Overview
